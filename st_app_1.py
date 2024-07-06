@@ -281,16 +281,17 @@ app.add_middleware(
 
 
 @app.post("/run_model/")
-async def run_model(file):
+async def run_model(file: UploadFile):
     with open(os.path.join("configs", "config.yml"), mode='r') as conf_f:
         con_f = yaml.safe_load(conf_f)
 
     # print(con_f)
-    con_f['src_dir'] = f'{file.file}'
+    con_f['src_dir'] = f'{file.filename}'
     # print(con_f)
 
     with open(os.path.join("configs", "config.yml"), "w") as f:
         yaml.dump(con_f, f, sort_keys=False)
+
     starter()
 
     # img = Image.open(file.file)
@@ -314,14 +315,12 @@ st.title('Registrations')
 
 
 def get_result(file):
-    files = {
-        'path': file,
-    }
-    response = requests.post('http://127.0.0.1:8000/run_model/', data=files)
+    # files = {'path': file,{'Content-Type': 'text/plain'}}
+    response = requests.post('http://127.0.0.1:8000/run_model/', data=file, headers = {'Content-Type': 'text/plain'})
     if response.status_code == 500:
         st.error('Ошибка в работе модели')
         return
-    st.write(response.content)
+    st.dataframe(response.content)
 
 
 users_path = st.text_input("Введите к папке с файлами и нажмите Enter")

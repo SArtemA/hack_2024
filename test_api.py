@@ -13,5 +13,6 @@ def test_run_model():
     files = {'path': test_image_path,}
     response = client.post("/run_model/", data=files)
     
-    assert response.status_code == 200
     assert response.headers["content-type"] == "text/csv"
+    assert response.status_code == 200
+    

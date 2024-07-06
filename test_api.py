@@ -2,7 +2,7 @@
 import os
 import pytest
 from fastapi.testclient import TestClient
-from st_app import app
+from st_app_1 import app
 
 # Создание клиента для тестирования
 client = TestClient(app)

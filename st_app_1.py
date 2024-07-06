@@ -281,7 +281,8 @@ app.add_middleware(
 
 
 @app.post("/run_model/")
-async def run_model(file: UploadFile):
+async def run_model(file):
+    print(file)
     with open(os.path.join("configs", "config.yml"), mode='r') as conf_f:
         con_f = yaml.safe_load(conf_f)
 
@@ -316,7 +317,9 @@ st.title('Registrations')
 
 def get_result(file):
     # files = {'path': file,{'Content-Type': 'text/plain'}}
+    print(file)
     response = requests.post('http://127.0.0.1:8000/run_model/', data=file, headers = {'Content-Type': 'text/plain'})
+    print(response)
     if response.status_code == 500:
         st.error('Ошибка в работе модели')
         return

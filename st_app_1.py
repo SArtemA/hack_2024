@@ -29,7 +29,7 @@ class Payload(BaseModel):
 def base_ml():
     # Load main config
     main_config = MainConfig(config_sources=FileSource(file=os.path.join("configs", "config.yml")))
-    device = main_config.device
+    device =  torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # Load imgs from source dir
 

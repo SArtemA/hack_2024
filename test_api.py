@@ -9,10 +9,10 @@ client = TestClient(app)
 
 # Тестируем endpoint /run_model/ с изображением
 def test_run_model():
-    test_image_path = 'data'  # Путь тестовый
-    files = {'data': test_image_path,}
+    # Путь тестовый
+    files = {'data': 'data'}
     response = client.post("/run_model/", data=files)
-    print(response)
+    print(response.content)
     assert response.headers["content-type"] == 'application/json'
     assert response.status_code == 200
     

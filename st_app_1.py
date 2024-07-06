@@ -24,7 +24,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 class Payload(BaseModel):
-    data: str = ""
+    data_pth: str = ""
 
 def base_ml():
     # Load main config
@@ -290,7 +290,7 @@ async def run_model(file: Payload):
         con_f = yaml.safe_load(conf_f)
 
     # print(con_f)
-    con_f['src_dir'] = f'{file.data}'
+    con_f['src_dir'] = f'{file.data_pth}'
     # print(con_f)
 
     with open(os.path.join("configs", "config.yml"), "w") as f:
@@ -321,7 +321,7 @@ st.title('Registrations')
 def get_result(file):
     # files = {'path': file,{'Content-Type': 'text/plain'}}
     print(file)
-    response = requests.post('http://127.0.0.1:8000/run_model/',  data={"data":file}, headers = {'Content-Type': 'text/plain'})
+    response = requests.post('http://127.0.0.1:8000/run_model/',  data={"data_pth":file}, headers = {'Content-Type': 'text/plain'})
     print(response)
     if response.status_code == 500:
         st.error('Ошибка в работе модели')

@@ -21,7 +21,10 @@ from threading import Thread
 import uvicorn
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
+class Payload(BaseModel):
+    data: str = ""
 
 def base_ml():
     # Load main config
@@ -281,7 +284,7 @@ app.add_middleware(
 
 
 @app.post("/run_model/")
-async def run_model(file):
+async def run_model(file: Payload):
     print(file)
     with open(os.path.join("configs", "config.yml"), mode='r') as conf_f:
         con_f = yaml.safe_load(conf_f)

@@ -10,7 +10,7 @@ client = TestClient(app)
 # Тестируем endpoint /run_model/ с изображением
 def test_run_model():
     # Путь тестовый
-    files = {'data': 'data'}
+    files = {'data_pth': 'data'}
     response = client.post("/run_model/", data=files)
     print(response.content)
     assert response.headers["content-type"] == 'application/json'

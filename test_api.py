@@ -10,7 +10,7 @@ client = TestClient(app)
 # Тестируем endpoint /run_model/ с изображением
 def test_run_model():
     test_image_path = 'data'  # Путь тестовый
-    with open(test_image_path, "rb") as file:
+    with open(test_image_path, "r") as file:
         files = {'path': file,}
         response = client.post("/run_model/", data=files)
     

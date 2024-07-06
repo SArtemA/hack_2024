@@ -14,6 +14,6 @@ def test_run_model():
     response = client.post("/run_model/", json=files)
     print(response.content)
     assert response.status_code == 200
-    assert response.headers["content-type"] == 'text/csv'
+    assert response.headers["content-type"] == 'text/csv; charset=utf-8'
     
     

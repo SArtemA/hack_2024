@@ -147,8 +147,8 @@ def print_exif_data(image_path):
 def final_folder_creation(bl_fit_tab):
     time_holder = []
     class_holder = []
-
-    # folder_name,class,date_registration_start,date_registration_end,count
+    bl_fit_tab = bl_fit_tab.dropna()
+    # name_folder,class,date_registration_start,date_registration_end,count
     print(os.listdir())
     if 'fin_res.csv' in os.listdir():
         print('exists')
@@ -158,7 +158,7 @@ def final_folder_creation(bl_fit_tab):
         print('doesnt exists')
         print()
         fin_res = pd.DataFrame(
-            columns=['folder_name', 'class', 'date_registration_start', 'date_registration_end', 'count'])
+            columns=['name_folder', 'class', 'date_registration_start', 'date_registration_end', 'count'])
 
     first_time = 0
     ani_count = 0
@@ -189,7 +189,7 @@ def final_folder_creation(bl_fit_tab):
                 fin_res.drop(fin_res.tail(1).index, inplace=True)  # drop last n rows
 
                 fin_res = fin_res._append({
-                    'folder_name': path_to_img.parts[-1],
+                    'name_folder': path_to_img.parts[-1],
                     'class': row.class_name,
                     'date_registration_start': first_time,
                     'date_registration_end': time_info,
@@ -208,7 +208,7 @@ def final_folder_creation(bl_fit_tab):
                 class_holder.append(row.class_name)
 
                 fin_res = fin_res._append({
-                    'folder_name': path_to_img.parts[-1],
+                    'name_folder': path_to_img.parts[-1],
                     'class': row.class_name,
                     'date_registration_start': time_info,
                     'date_registration_end': time_info,
@@ -223,7 +223,7 @@ def final_folder_creation(bl_fit_tab):
             time_holder.append(time_info)
             class_holder.append(row.class_name)
             fin_res = fin_res._append({
-                'folder_name': path_to_img.parts[-1],
+                'name_folder': path_to_img.parts[-1],
                 'class': row.class_name,
                 'date_registration_start': time_info,
                 'date_registration_end': time_info,
@@ -326,7 +326,7 @@ def get_result(file):
     if response.status_code == 500:
         st.error('Ошибка в работе модели')
         return
-    st.dataframe(response.content)
+    st.dataframe(pd.read_csv('fin_res.csv')
 
 
 users_path = st.text_input("Введите к папке с файлами и нажмите Enter")

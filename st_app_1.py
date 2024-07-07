@@ -326,7 +326,7 @@ def get_result(file):
     if response.status_code == 500:
         st.error('Ошибка в работе модели')
         return
-    st.dataframe(pd.read_csv('fin_res.csv')
+    st.dataframe(pd.read_csv('fin_res.csv'))
 
 
 users_path = st.text_input("Введите к папке с файлами и нажмите Enter")

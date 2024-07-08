@@ -19,4 +19,4 @@
 - а
 
 ### Пример работы приложения
-- картинки
+- [скринкаст](https://drive.google.com/drive/folders/1P8QGz2w1lh_butByBxgFKGsbk23Vw8x2?usp=sharing)
